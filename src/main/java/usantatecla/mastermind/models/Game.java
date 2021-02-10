@@ -7,60 +7,72 @@ import usantatecla.mastermind.types.Color;
 
 public class Game {
 
-	private static final int MAX_LONG = 10;
+    private static final int MAX_LONG = 10;
+    private SecretCombination secretCombination;
+    private List<ProposedCombination> proposedCombinations;
+    private List<Result> results;
+    private int attempts;
 
-	private SecretCombination secretCombination;
+    public Game() {
+        this.clear();
+    }
 
-	private List<ProposedCombination> proposedCombinations;
+    public void clear() {
+        this.secretCombination = new SecretCombination();
+        this.proposedCombinations = new ArrayList<ProposedCombination>();
+        this.results = new ArrayList<Result>();
+        this.attempts = 0;
+    }
 
-	private List<Result> results;
+    public void addProposedCombination(List<Color> colors) {
+        ProposedCombination proposedCombination = new ProposedCombination(colors);
+        this.proposedCombinations.add(proposedCombination);
+        this.results.add(this.secretCombination.getResult(proposedCombination));
+        this.attempts++;
+    }
 
-	private int attempts;
+    public boolean isLooser() {
+        return this.attempts == Game.MAX_LONG;
+    }
 
-	public Game() {
-		this.clear();
-	}
+    public boolean isWinner() {
+        return this.results.get(this.attempts - 1).isWinner();
+    }
 
-	public void clear() {
-		this.secretCombination = new SecretCombination();
-		this.proposedCombinations = new ArrayList<ProposedCombination>();
-		this.results = new ArrayList<Result>();
-		this.attempts = 0;
-	}
+    public int getAttempts() {
+        return this.attempts;
+    }
 
-	public void addProposedCombination(List<Color> colors) {
-		ProposedCombination proposedCombination = new ProposedCombination(colors);
-		this.proposedCombinations.add(proposedCombination);
-		this.results.add(this.secretCombination.getResult(proposedCombination));
-		this.attempts++;
-	}
+    public List<Color> getColors(int position) {
+        return this.proposedCombinations.get(position).colors;
+    }
 
-	public boolean isLooser() {
-		return this.attempts == Game.MAX_LONG;
-	}
-	
-	public boolean isWinner() {
-		return this.results.get(this.attempts-1).isWinner();
-	}
+    public int getBlacks(int position) {
+        return this.results.get(position).getBlacks();
+    }
 
-	public int getAttempts() {
-		return this.attempts;
-	}
+    public int getWhites(int position) {
+        return this.results.get(position).getWhites();
+    }
 
-	public List<Color> getColors(int position) {
-		return this.proposedCombinations.get(position).colors;
-	}
+    public int getWidth() {
+        return Combination.getWidth();
+    }
 
-	public int getBlacks(int position) {
-		return this.results.get(position).getBlacks();
-	}
+    public GameMemento createMemento() {
+        assert (this.attempts > 0);
+        return new GameMemento(this.attempts, this.proposedCombinations.get(this.attempts - 1));        
+    }
 
-	public int getWhites(int position) {
-		return this.results.get(position).getWhites();
-	}
-
-	public int getWidth() {
-		return Combination.getWidth();
-	}
-
+    void set(GameMemento memento) {
+        assert (memento != null);
+        this.attempts = memento.getAttempts();
+        ProposedCombination proposedMemento = memento.getProposedCombination();
+        this.proposedCombinations.set(this.attempts - 1, proposedMemento);
+        this.results.set(this.attempts - 1, this.secretCombination.getResult(proposedMemento));
+        /*  for (int i = this.attempts; i < this.proposedCombinations.size(); i++) {
+           this.proposedCombinations.remove(i);
+           this.results.remove(i);
+        } */
+    }
 }

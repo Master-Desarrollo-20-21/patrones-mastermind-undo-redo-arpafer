@@ -6,6 +6,9 @@ import usantatecla.mastermind.types.Color;
 
 class ProposedCombination extends Combination {
 
+        ProposedCombination() {
+            super();
+        }
 	ProposedCombination(List<Color> colors) {
 		this.colors = colors;
 	}
@@ -22,5 +25,12 @@ class ProposedCombination extends Combination {
 		}
 		return false;
 	}
+
+    void copy(ProposedCombination proposedCombination) {
+        
+        for (Color color: proposedCombination.colors) {
+           this.colors.add(color);
+        }
+    }
 
 }

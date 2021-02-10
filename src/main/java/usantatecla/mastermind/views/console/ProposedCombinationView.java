@@ -10,26 +10,40 @@ import usantatecla.utils.WithConsoleView;
 import usantatecla.mastermind.views.MessageView;
 
 class ProposedCombinationView extends WithConsoleView {
-	
-	private ProposalController proposalController;
-	
-	ProposedCombinationView(ProposalController proposalController) {
-		this.proposalController = proposalController;
-	}
-	
-	void write(int position) {
-		for (Color color : this.proposalController.getColors(position)) {
-			new ColorView(color).write();
-		}
-	}
 
-	List<Color> read() {
-		String characters = this.console.readString(MessageView.PROPOSED_COMBINATION.getMessage());
-		List<Color> colors = new ArrayList<Color>();
-		for (int i=0; i<characters.length(); i++) {
-			colors.add(ColorView.getInstance(characters.charAt(i)));
-		}
-		return colors;
-	}
-	
+    private ProposalController proposalController;
+
+    ProposedCombinationView(ProposalController proposalController) {
+        this.proposalController = proposalController;
+    }
+
+    void write(int position) {
+        for (Color color : this.proposalController.getColors(position)) {
+            new ColorView(color).write();
+        }
+    }
+
+    List<Color> read() {
+        String characters = this.console.readString(MessageView.PROPOSED_COMBINATION.getMessage());
+        List<Color> colors = new ArrayList<Color>();
+        for (int i = 0; i < characters.length(); i++) {
+            colors.add(ColorView.getInstance(characters.charAt(i)));
+        }
+        return colors;
+    }
+
+    void showResult() {
+        console.writeln();
+        new AttemptsView(this.proposalController).writeln();
+        new SecretCombinationView(proposalController).writeln();
+        for (int i = 0; i < proposalController.getAttempts(); i++) {
+            new ProposedCombinationView(proposalController).write(i);
+            new ResultView(proposalController).writeln(i);
+        }
+        if (proposalController.isWinner()) {
+            console.writeln(MessageView.WINNER.getMessage());
+        } else if (proposalController.isLooser()) {
+            console.writeln(MessageView.LOOSER.getMessage());
+        }
+    }
 }
