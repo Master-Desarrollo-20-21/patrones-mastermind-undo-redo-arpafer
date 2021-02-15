@@ -59,17 +59,17 @@ public class Game {
         return Combination.getWidth();
     }
 
-    public GameMemento createMemento() {
-        assert (this.attempts > 0);
-        return new GameMemento(this.attempts, this.proposedCombinations.get(this.attempts - 1));        
+    public GameMemento createMemento() {                
+        return new GameMemento(this.attempts, this.proposedCombinations.get(this.attempts - 1));                
     }
 
     void set(GameMemento memento) {
         assert (memento != null);
         this.attempts = memento.getAttempts();
-        ProposedCombination proposedMemento = memento.getProposedCombination();
-        this.proposedCombinations.set(this.attempts - 1, proposedMemento);
+        ProposedCombination proposedMemento = memento.getProposedCombination();        
+        this.proposedCombinations.set(this.attempts - 1, proposedMemento);        
         this.results.set(this.attempts - 1, this.secretCombination.getResult(proposedMemento));
+        
         /*  for (int i = this.attempts; i < this.proposedCombinations.size(); i++) {
            this.proposedCombinations.remove(i);
            this.results.remove(i);

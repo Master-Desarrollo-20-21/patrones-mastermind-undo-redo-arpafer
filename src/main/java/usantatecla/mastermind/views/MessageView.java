@@ -11,8 +11,9 @@ public enum MessageView {
 	LOOSER("You've lost!!! :-("),
         OPTION_PROPOSE_COMBINATION("Propose Combination"),
         OPTION_UNDO("Undo previous Proposal"),
-        OPTION_REDO("Redo previous Proposal");
-
+        OPTION_REDO("Redo previous Proposal"),
+        MENU_OPTIONS("--- Choose one option ---");
+        
 	private String message;
 	
 	private MessageView(String message) {

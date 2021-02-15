@@ -4,7 +4,6 @@ import java.util.List;
 import usantatecla.mastermind.controllers.ProposalController;
 import usantatecla.mastermind.types.Color;
 import usantatecla.mastermind.views.MessageView;
-import usantatecla.utils.Console;
 
 public class PlayCommand extends Command {
 
@@ -13,8 +12,7 @@ public class PlayCommand extends Command {
     }
 
     @Override
-    protected void execute() {
-        Console console = new Console();
+    protected void execute() {        
         usantatecla.mastermind.types.Error error;        
         do {
             List<Color> colors = new ProposedCombinationView(this.proposalController).read();

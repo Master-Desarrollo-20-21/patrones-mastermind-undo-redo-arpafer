@@ -8,11 +8,11 @@ class StartView extends WithConsoleView {
 	
 	private SecretCombinationView secretCombinationView;
 	
-	void interact(StartController startController) {
-		startController.start();
+	void interact(StartController startController) {		
 		this.console.writeln(MessageView.TITLE.getMessage());
 		this.secretCombinationView = new SecretCombinationView(startController);
-		this.secretCombinationView.writeln();
+		this.secretCombinationView.writeln();                
+                startController.start();
 	}
 
 }
