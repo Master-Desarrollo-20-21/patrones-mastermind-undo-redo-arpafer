@@ -77,7 +77,6 @@ public class Session {
     }
 
     public void resetState() {
-        this.state.reset();
-        this.registry.register();
+        this.state.reset();        
     }
 }

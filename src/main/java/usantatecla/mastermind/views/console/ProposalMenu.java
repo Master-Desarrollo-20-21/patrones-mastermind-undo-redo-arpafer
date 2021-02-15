@@ -5,9 +5,9 @@ import usantatecla.mastermind.views.MessageView;
 import usantatecla.utils.Console;
 import usantatecla.utils.Menu;
 
-public class PlayMenu extends Menu {
+public class ProposalMenu extends Menu {
 
-    public PlayMenu(ProposalController proposalController) {
+    public ProposalMenu(ProposalController proposalController) {
         Console console = new Console();
         console.writeln(MessageView.MENU_OPTIONS.getMessage());
         this.addCommand(new PlayCommand(proposalController));

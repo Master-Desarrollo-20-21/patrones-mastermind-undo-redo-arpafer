@@ -27,9 +27,9 @@ public class GameRegistry {
         this.mementos.add(this.firstPrevious, this.game.createMemento());       
     }
 
-    void undo() {                
+    void undo() {                        
         this.firstPrevious++;
-        this.game.set(this.mementos.get(this.firstPrevious));                
+        this.game.set(this.mementos.get(this.firstPrevious));                        
     }
 
     boolean isUndoable() {

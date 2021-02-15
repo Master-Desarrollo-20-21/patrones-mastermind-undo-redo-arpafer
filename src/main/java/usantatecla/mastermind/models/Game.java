@@ -26,7 +26,7 @@ public class Game {
 
     public void addProposedCombination(List<Color> colors) {
         ProposedCombination proposedCombination = new ProposedCombination(colors);
-        this.proposedCombinations.add(proposedCombination);
+        this.proposedCombinations.add(this.attempts, proposedCombination);
         this.results.add(this.secretCombination.getResult(proposedCombination));
         this.attempts++;
     }
@@ -68,11 +68,6 @@ public class Game {
         this.attempts = memento.getAttempts();
         ProposedCombination proposedMemento = memento.getProposedCombination();        
         this.proposedCombinations.set(this.attempts - 1, proposedMemento);        
-        this.results.set(this.attempts - 1, this.secretCombination.getResult(proposedMemento));
-        
-        /*  for (int i = this.attempts; i < this.proposedCombinations.size(); i++) {
-           this.proposedCombinations.remove(i);
-           this.results.remove(i);
-        } */
+        this.results.set(this.attempts - 1, this.secretCombination.getResult(proposedMemento));               
     }
 }
